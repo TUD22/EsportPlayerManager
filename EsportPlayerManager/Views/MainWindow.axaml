@@ -15,6 +15,16 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Button Content="Players" Command="{Binding ShowPlayer}"/>
+            <Button Content="Tournaments" Command="{Binding ShowTournament}"/>
+            <Button Content="Trainings" Command="{Binding ShowTraining}"/>
+            <TextBlock Text="Statystyki:" FontWeight="Bold"/>
+            <TextBlock Text="{Binding SelectedPlayer.Skill, StringFormat='Skill: {0}'}"/>
+            <TextBlock Text="{Binding SelectedPlayer.Stress, StringFormat='Stress: {0}'}"/>
+        </StackPanel>
+        <ContentControl Content="{Binding CurrentView}"/>
+    </StackPanel>
 
 </Window>
