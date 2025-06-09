@@ -6,4 +6,6 @@ public class Training
     public string trainingName { get; set; }
     public int skillIncrease { get; set; }
     public int stressIncrease { get; set; }
+    
+    public int moneyIncrease { get; set; }
 }

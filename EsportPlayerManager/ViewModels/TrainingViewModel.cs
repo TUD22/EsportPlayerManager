@@ -10,14 +10,16 @@ public partial class TrainingViewModel : ObservableObject
 {
     private readonly TrainingRepository _trainingRepository;
     private readonly PlayerRepository _playerRepository;
+    private readonly MainWindowViewModel _mainVm;
 
     [ObservableProperty] private Training? _selectedTraining;
     [ObservableProperty] private Player? _selectedPlayer;
 
     public ObservableCollection<Training> Trainings { get; } = new();
 
-    public TrainingViewModel(Player selectedPlayer)
+    public TrainingViewModel(MainWindowViewModel mainWindowViewModel)
     {
+        _mainVm = mainWindowViewModel;
         var connectionString = """
                                Host=localhost;
                                Port=5432;
@@ -25,7 +27,7 @@ public partial class TrainingViewModel : ObservableObject
                                Password=Dominik01;
                                Database=esportmanager
                                """;
-        SelectedPlayer = selectedPlayer;
+        SelectedPlayer = mainWindowViewModel.SelectedPlayer;
         _playerRepository = new PlayerRepository(connectionString);
         _trainingRepository = new TrainingRepository(connectionString);
         LoadTrainings();
@@ -49,10 +51,17 @@ public partial class TrainingViewModel : ObservableObject
     {
         if (SelectedTraining == null || _selectedPlayer == null)
             return;
-
+        SelectedPlayer.Money += SelectedTraining.moneyIncrease;
         SelectedPlayer.Skill += SelectedTraining.skillIncrease;
         SelectedPlayer.Stress += SelectedTraining.stressIncrease;
         _playerRepository.UpdatePlayer(SelectedPlayer);
+        _mainVm.SelectedPlayer = new Player
+        {
+            PlayerId = SelectedPlayer.PlayerId,
+            Skill = SelectedPlayer.Skill,
+            Stress = SelectedPlayer.Stress,
+            Money = SelectedPlayer.Money
+        };
         OnPropertyChanged(nameof(SelectedPlayer));
     }
 
@@ -60,6 +69,6 @@ public partial class TrainingViewModel : ObservableObject
 
     partial void OnSelectedTrainingChanged(Training? value)
     {
-        JoinTrainingCommand.NotifyCanExecuteChanged();
+        TrainCommand.NotifyCanExecuteChanged();
     }
 }

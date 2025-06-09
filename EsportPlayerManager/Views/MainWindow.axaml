@@ -23,6 +23,7 @@
             <TextBlock Text="Statystyki:" FontWeight="Bold"/>
             <TextBlock Text="{Binding SelectedPlayer.Skill, StringFormat='Skill: {0}'}"/>
             <TextBlock Text="{Binding SelectedPlayer.Stress, StringFormat='Stress: {0}'}"/>
+            <TextBlock Text="{Binding SelectedPlayer.Money, StringFormat='Money: {0}'}"/>
         </StackPanel>
         <ContentControl Content="{Binding CurrentView}"/>
     </StackPanel>

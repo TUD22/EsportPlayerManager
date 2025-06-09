@@ -12,7 +12,7 @@
         <ListBox ItemsSource="{Binding Trainings}" SelectedItem="{Binding SelectedTraining}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding skillIncrease}" />
+                    <TextBlock Text="{Binding trainingName}" />
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

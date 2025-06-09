@@ -3,18 +3,29 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:viewModels="clr-namespace:EsportPlayerManager.ViewModels"
+             xmlns:global="clr-namespace:"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:DataType="viewModels:TournamentViewModel"
+             x:DataType="global:TournamentViewModel"
              x:Class="EsportPlayerManager.Views.TournamentView">
+
     <StackPanel Margin="10">
         <TextBlock Text="Dostępne turnieje" FontWeight="Bold" FontSize="16"/>
 
-        <ItemsControl ItemsSource="{Binding Tournaments}">
-            <ItemsControl.ItemTemplate>
+        <ListBox ItemsSource="{Binding Tournaments}" 
+                 SelectedItem="{Binding SelectedTournament}">
+            <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Name}" />
+                    <StackPanel Margin="5">
+                        <TextBlock Text="{Binding Name}" FontWeight="Bold"/>
+                        <TextBlock Text="{Binding EntryFee, StringFormat='Wpisowe: {0}'}"/>
+                        <TextBlock Text="{Binding Prize, StringFormat='Nagroda: {0}'}"/>
+                        <TextBlock Text="{Binding MinSkillRequired, StringFormat='Minimalny Skill: {0}'}"/>
+                    </StackPanel>
                 </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ItemsControl>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Button Content="Dołącz do turnieju" Command="{Binding JoinTournamentCommand}"/>
+        <TextBlock Text="{Binding TournamentResultMessage}" Margin="10,20,10,0" FontWeight="Bold" Foreground="DarkGreen"/>
     </StackPanel>
 </UserControl>

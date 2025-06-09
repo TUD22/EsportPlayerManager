@@ -53,7 +53,7 @@ public class PlayerRepository
         using var connection = new NpgsqlConnection(_connectionString);
         connection.Execute("""
                                UPDATE players 
-                               SET skill = @Skill, stress = @Stress 
+                               SET skill = @Skill, stress = @Stress, money = @Money
                                WHERE player_id = @PlayerId
                            """, player);
     }

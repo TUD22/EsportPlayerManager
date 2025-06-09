@@ -28,7 +28,7 @@ public partial class MainWindowViewModel : ViewModelBase
     {
         CurrentView = new TrainingView()
         {
-            DataContext = new TrainingViewModel(SelectedPlayer)
+            DataContext = new TrainingViewModel(this)
         };
     }
 
